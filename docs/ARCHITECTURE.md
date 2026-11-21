@@ -136,3 +136,63 @@ graph LR
         IDU --> WiFi["Wi-Fi 6 Clients"]
     end
 ```
+
+---
+
+## 6. Voice Calling Subsystem (VoNR / VoLTE Architecture)
+
+The JODU52140 incorporates a dedicated cellular voice subsystem capable of 5G SA Voice-over-NR (VoNR) and 4G Voice-over-LTE (VoLTE).
+
+```mermaid
+graph TD
+    Client["VoIP Client / JioCall App (LAN)"] -->|TCP :6666| Server["jiocall_server (/usr/bin/jiocall_server)"]
+    Server -->|QMI Voice v02| QCCI["libqmi_cci.so.1 / libqmiservices.so.1"]
+    QCCI -->|IPC| Baseband["Qualcomm SDX65 Modem Core"]
+    Baseband -->|IMS APN profile_id=2| IMS["Jio 5G IMS Core (VoNR / VoLTE)"]
+```
+
+### Key Components:
+* **`jiocall_server`**: A native Linux daemon listening on TCP port `6666`. It accepts socket connections from local network clients, handling call establishment, DTMF, and call termination commands.
+* **QMI Voice Interface**: Interacts with Qualcomm's `voice_get_service_object_internal_v02` to bridge application layer commands to the modem baseband.
+* **Dedicated IMS APN**: Configured automatically via `/sbin/lux_add_ims_apn.sh` with `apn='ims'`, `apn_id='2'`, and `apn_connection_type='3'` (IP multi-PDP context).
+* **Modem IMS Stack**: Enabled via `AT+QCFG="ims",2,0` to register the baseband with Jio's IP Multimedia Subsystem core.
+
+---
+
+## 7. RF Subsystem & Power Class 1.5 (HPUE)
+
+```mermaid
+flowchart LR
+    Modem["SDX65 Baseband"] --> RFFE["RF Front End (RFFE)"]
+    RFFE --> PA["Power Amplifier (+29 dBm)"]
+    PA --> HPUE{"HPUE PC1.5 Enabled?"}
+    HPUE -->|Yes (+29 dBm / 800mW)| Ant["High-Gain Directional Antennas"]
+    HPUE -->|No (+23 dBm / 200mW)| Ant
+```
+
+### High Power User Equipment (HPUE):
+* **Standard Power Class 3:** Maximum output power is limited to +23 dBm (200 mW).
+* **HPUE Power Class 1.5:** The JODU52140 RF power amplifiers support Power Class 1.5 on 3GPP Band n78 (3300–3800 MHz), raising maximum transmit power to **+29 dBm (800 mW)**.
+* **Enabling Command:** `AT+QPC1DOT5=1`. Enforced across reboots in `/usrdata/custom_unhide/apply_unhide.sh`.
+* **5G Cell & Band Lock:** The baseband firmware supports physical cell locking via `AT+QNWLOCK="common/5g",<pci>,<freq>,<scs>,<band>` and band locking via `AT+QNWPREFCFG="nr5g_band"`.
+
+---
+
+## 8. Hardware Peripherals & Telemetry
+
+### Dual SIM & eSIM:
+* **Physical SIM (Slot 1):** Internal nano-SIM slot wired directly to the baseband USIM interface.
+* **eSIM (Slot 2):** Onboard Thales eUICC chip (EID: `89033023426300000000018883054460`) managed via LPA daemon (`lpad`) with GSMA RSPv2 root certificates (`/data/GSMA_RSPv2-Root.pem`).
+* **Switching:** Controlled via `AT+QUIMSLOT=1` or `AT+QUIMSLOT=2`.
+
+### Bluetooth 5.x:
+* **Hardware:** Realtek Bluetooth controller connected over high-speed UART (`/dev/ttyHS0`).
+* **Stack:** Initialized with `rtk_hciattach` and managed via BlueZ (`bluetoothd`, `bluealsa`, `/data/bt/set_bt`).
+
+### Satellite GNSS:
+* **Receiver:** Embedded Qualcomm SDX65 multi-constellation engine (GPS, GLONASS, Galileo, BeiDou).
+* **NMEA Output:** Accessible via `/dev/ttyUSB2` when activated via `AT+QGPS=1`.
+
+### Thermal Management:
+* Real-time thermal telemetry across 17 distinct hardware sensors (Power Amplifiers, Modem Core, PMIC, XO) queried via `AT+QTEMP`.
+
