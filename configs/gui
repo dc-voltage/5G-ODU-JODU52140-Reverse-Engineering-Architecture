@@ -1,0 +1,7 @@
+cat /etc/config/gui 2>/dev/null
+config 'user_mgmt'
+		option timeout 600000
+		option refresh_time 0
+		option language '0'
+		option never_logged_in '1'
+

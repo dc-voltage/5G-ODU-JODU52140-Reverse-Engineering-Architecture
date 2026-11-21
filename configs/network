@@ -1,0 +1,1 @@
+cat /etc/config/network 2>/dev/null

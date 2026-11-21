@@ -1,0 +1,13 @@
+netstat -tulpen 2>/dev/null || ss -tulpn
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.1:5037          0.0.0.0:*               LISTEN      414/adbd
+tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      1493/uhttpd
+tcp        0      0 fe80::xxxx:xxxx:xxxx:xxxx:53 :::*                    LISTEN      605/dnsmasq
+tcp        0      0 :::443                  :::*                    LISTEN      1493/uhttpd
+tcp        0      0 :::6666                 :::*                    LISTEN      886/jiocall_server
+udp        0      0 0.0.0.0:30007           0.0.0.0:*                           1703/cwmpc
+udp        0      0 127.0.0.1:11111         0.0.0.0:*                           157/port_bridge
+udp        0      0 127.0.0.1:22222         0.0.0.0:*                           946/quectel_daemon
+udp        0      0 fe80::xxxx:xxxx:xxxx:xxxx:53 :::*                                605/dnsmasq
+root@sdxlemur:~# 

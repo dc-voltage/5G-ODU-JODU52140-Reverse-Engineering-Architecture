@@ -1,0 +1,5 @@
+cat /etc/config/eogre 2>/dev/null
+
+config luxslam 'general'
+	option enable '1'
+

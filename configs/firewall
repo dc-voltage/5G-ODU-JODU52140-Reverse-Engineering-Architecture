@@ -1,0 +1,39 @@
+cat /etc/config/firewall 2>/dev/null
+config luxslam dmz
+	option enable '0'
+	option ip_addr ''
+	option ip_version '1'
+
+config luxslam general
+	option enable '1'
+
+config luxslam ip_filter
+	option enable '0'
+	option mode '2'
+
+config luxslam mac_filter
+	option enable '0'
+	option mode '2'
+
+config luxslam port_forward
+	option enable '0'
+
+config luxslam upnp
+	option enable '0'
+
+config luxslam url_filter
+	option enable '0'
+	option mode '2'
+
+config luxslam custom_rule
+
+config luxslam wan_service
+	option enable_icmp ''
+	option enable_https ''
+	option enable_port ''
+
+config luxslam local_service
+	option enable_icmp ''
+	option enable_ssh ''
+	option enable_telnet ''
+

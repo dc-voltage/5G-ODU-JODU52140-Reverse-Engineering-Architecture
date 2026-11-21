@@ -1,0 +1,4 @@
+cat /etc/config/bluetooth 2>/dev/null
+config luxslam general
+	option enable '1'
+

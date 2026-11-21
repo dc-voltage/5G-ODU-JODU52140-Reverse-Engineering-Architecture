@@ -1,0 +1,9 @@
+cat /etc/config/dhcp 2>/dev/null
+
+config luxslam 'lan'
+	option dhcp_enable '1'
+	option gateway_ip '192.168.225.1'
+	option dhcp_start_ip '192.168.225.20'
+	option dhcp_end_ip '192.168.225.170'
+	option netmask '255.255.252.0'
+	option dhcp_lease_time '43200'

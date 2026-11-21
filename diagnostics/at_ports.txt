@@ -1,0 +1,17 @@
+ls -la /dev/smd* /dev/mhi* /dev/at* /dev/tty* 2>/dev/null | gre
+p -E "smd|mhi|at|HS|USB"
+crw-r-----    1 radio    radio     245,   0 Jan  1 05:30 /dev/at_mdm0
+crw-r-----    1 radio    radio     497,   0 Jan  1 05:30 /dev/at_usb0
+crw-r-----    1 radio    radio     497,   1 Jan  1 05:30 /dev/at_usb1
+crw-r-----    1 radio    radio     497,   2 Jan  1 05:30 /dev/at_usb2
+crw-------    1 root     root      245,   7 Jan  1 05:30 /dev/smd11
+crw-------    1 root     root      245,   8 Jan  1 05:30 /dev/smd21
+crw-------    1 root     root      245,   9 Jan  1 05:30 /dev/smd22
+crw-------    1 radio    radio     245,   4 Jan  1 05:30 /dev/smd7
+crw-rw-r--    1 radio    radio     245,   5 Jan  1 05:30 /dev/smd8
+crw-------    1 root     root      245,   6 Jan  1 05:30 /dev/smd9
+crw-------    1 root     root      245,   1 Jan  1 05:30 /dev/smdcntl0
+crw-------    1 radio    radio     245,   2 Jan  1 05:30 /dev/smdcntl1
+crw-------    1 radio    radio     245,   3 Jan  1 05:30 /dev/smdcntl8
+crw-rw----    1 root     dialout   242,   0 Jan  1 05:30 /dev/ttyHS0
+root@sdxlemur:~# 

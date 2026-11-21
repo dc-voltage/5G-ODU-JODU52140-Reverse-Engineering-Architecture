@@ -1,0 +1,80 @@
+cat /etc/config/5g 2>/dev/null
+
+config luxslam 'band'
+	option nr_5g_band 'n78'
+
+config luxslam 'ipv4'
+
+config luxslam 'ipv6'
+
+config luxslam 'neighbor_cell'
+
+config luxslam 'network'
+	option mode '2'
+
+config luxslam 'serving_cell'
+
+config luxslam 'sim'
+	option default_apn_network 'Automatic'
+	option default_connection_type '3'
+	option lte_band 'n78'
+	option nr5g_nsa 'n78'
+	option apn_config_mode '1'
+	option pin_enable '0'
+	option nr_arfcn '0'
+	option apn_status '0'
+	option default_apn 'jioairfibermu'
+
+config luxslam 'esim'
+	option auto_enable_profile '1'
+	option bip '1'
+
+config luxslam 'smdp'
+
+config luxslam 'sms_inbox'
+
+config luxslam 'sms_send'
+
+config luxslam 'sms_settings'
+	option centre_number '########'
+
+config luxslam 'pdu_details'
+
+config luxslam 'guti'
+
+config luxslam 'radio'
+
+config luxslam 'fwe'
+
+config luxslam 'data_call'
+
+config luxslam 'led_setting'
+	option rsrp_low '-109'
+	option rsrp_med '-100'
+	option rsrp_high '-90'
+	option sinr_high '5'
+	option sinr_med '3'
+	option sinr_low '0'
+
+config luxslam 'pci_lock_setting'
+	option pci_cell_id '0'
+	option pci_nrarfcn '0'
+
+config sim_apn_list
+	option profile_id '1'
+	option apn_id '1'
+	option apn 'jioairfibermu'
+	option apn_connection_type '3'
+
+config sim_apn_list
+	option profile_id '2'
+	option apn_id '2'
+	option apn 'ims'
+	option apn_connection_type '3'
+	option apn_type '2'
+	option apn_enable '1'
+	option profile_type '1'
+	option auth_type '0'
+	option data_profile_tech_type '1'
+	option proxy_port '0'
+

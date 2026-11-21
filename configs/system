@@ -1,0 +1,10 @@
+cat /etc/config/system 2>/dev/null
+config 'log_setting'
+	option conloglevel 'information'
+	option status 'DISABLED'
+
+config luxslam tcp_dump
+	option cap_status '2'
+	option interface 'LAN'
+	option size '20'
+	option status '1'

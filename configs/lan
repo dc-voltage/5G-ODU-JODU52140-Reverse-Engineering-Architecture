@@ -1,0 +1,50 @@
+cat /etc/config/lan 2>/dev/null
+
+config luxslam 'dhcpv4'
+	option lease_time '86400'
+	option dnslist '192.168.225.1,192.168.225.1'
+	option enable '1'
+	option end_addr '192.168.225.60'
+	option start_addr '192.168.225.20'
+
+config luxslam 'dhcpv6'
+	option lease_time '86400'
+	option mode '1'
+	option dns_mode '1'
+	option preference '255'
+	option prefix_delegation '1'
+	option prefix_length '64'
+
+config luxslam 'ethernet'
+
+config luxslam 'general'
+	option mode '3'
+	option manual_mac_addr '0'
+
+config luxslam 'ipv4'
+	option address_assignment '1'
+	option default_getway '192.168.225.1'
+	option ip_addr '192.168.225.1'
+	option mtu '1500'
+	option netmask '255.255.255.0'
+	option default_gateway '192.168.225.1'
+
+config luxslam 'ipv6'
+	option address_assignment '1'
+	option domain_name '1'
+	option prefix_length '60'
+
+config luxslam 'radvd'
+	option advertise_interval '30'
+	option advertise_mode '1'
+	option enable '1'
+	option m_flag '0'
+	option mtu '1500'
+	option o_flag '1'
+	option router_lifetime '3600'
+	option router_preference '3'
+
+config luxslam 'statistic'
+
+config luxslam 'data_rate'
+

@@ -1,0 +1,69 @@
+cat /etc/config/cwmp 2>/dev/null
+
+config luxslam 'general'
+	option enable '1'
+	option period_inform '86400'
+	option cr_host 'cr.acs.oss.jio.com'
+	option testenv '0'
+	option acs_url 'https://acs.oss.jio.com:9443/ftacs-digest/ACS'
+
+config alarm
+	option id '10003'
+	option state '2'
+	option threshold '0'
+	option val '34'
+
+config alarm
+	option id '10002'
+	option state '2'
+	option threshold '0'
+	option val '26'
+
+config alarm
+	option id '10019'
+	option val '0'
+	option threshold '0'
+	option state '2'
+
+config alarm
+	option id '10004'
+	option state '2'
+	option threshold '0'
+	option val '60'
+
+config alarm
+	option id '10020'
+	option val '0'
+	option threshold '0'
+	option state '2'
+
+config alarm
+	option id '10014'
+	option threshold '0'
+	option state '2'
+	option val '-95'
+
+config alarm
+	option id '10017'
+	option threshold '0'
+	option state '2'
+	option val '13'
+
+config alarm
+	option id '10015'
+	option threshold '0'
+	option state '2'
+	option val '-10'
+
+config alarm
+	option id '10012'
+	option val '0'
+	option threshold '0'
+	option state '2'
+
+config alarm
+	option id '10005'
+	option val '0'
+	option threshold '0'
+	option state '2'
+

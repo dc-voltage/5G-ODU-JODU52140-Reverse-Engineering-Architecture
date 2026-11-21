@@ -1,0 +1,10 @@
+cat /etc/config/alg 2>/dev/null
+config luxslam services
+	option ftp_enable '0'
+	option h323_enable '0'
+	option ipsec_passthrough_enable '0'
+	option l2tp_passthrough_enable '0'
+	option pptp_passthrough_enable '0'
+	option rtsp_enable '0'
+	option sip_enable '0'
+	option tftp_enable '0'

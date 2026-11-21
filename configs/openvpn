@@ -1,0 +1,8 @@
+cat /etc/config/openvpn 2>/dev/null
+config luxslam general
+	option enable '0'
+
+config luxslam client
+	option server_ip_addr ''
+	option server_subnet ''
+	option server_mask ''
