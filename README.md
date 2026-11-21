@@ -16,6 +16,7 @@ Comprehensive reverse-engineering documentation, system architecture analysis, c
 ## 📑 Table of Contents
 - [Hardware & Serial Connection](#-hardware--serial-connection)
 - [System Architecture](#-system-architecture)
+- [Quectel RG520F-JO Chip Unhide & Unlock Guide](docs/QUECTEL_RG520F_JO_CHIP_UNHIDE.md)
 - [Unlocked Web UI & Standalone Router Mode](#-unlocked-web-ui--standalone-router-mode)
 - [Verified Hidden Features & Hardware Capabilities](#-verified-hidden-features--hardware-capabilities)
   - [1. Voice Calling Architecture (VoNR / VoLTE & jiocall_server)](#1-voice-calling-architecture-vonr--volte--jiocall_server)
@@ -84,6 +85,28 @@ graph TD
 * **Distribution:** Qualcomm QTI Linux reference distro (`LE.UM.6.2.3.r1-03100-SDX65.0`)
 * **Flash Layout:** 34 MTD partitions (SBL, MIBIB, TZ, XBL, ABL, Boot, Recovery, Modem, System, Usrdata)
 * **LAN IP:** `192.168.225.1/24` (Router mode) / `169.254.51.1/24` (EoGRE link-local mode)
+
+---
+
+## 🔬 Quectel RG520F-JO Baseband Module & Chip Unhide
+
+The internal baseband engine is a **Quectel RG520F-JO** (Qualcomm Snapdragon SDX65 OpenCPU) running firmware `RG520FJOAAR05A03M4G_OCPU_LXA_03.200.03.200`.
+
+Stock Jio carrier firmware placed artificial software locks on the chip. Our deep hardware analysis verified that the underlying SDX65 hardware accepts complete unhiding:
+
+| Capability | Jio Stock Enforced State | Unlocked / Hardware State | Unlock Command |
+| :--- | :--- | :--- | :--- |
+| **5G Bands** | Locked to n78 only (`nr5g_band=78`) | **All Sub-6GHz bands supported** | `lux_atc 'AT+QNWPREFCFG="nr5g_band",1:3:5:8:28:40:41:77:78'` |
+| **4G LTE Bands** | Completely disabled (`lte_band=0`) | **All LTE Cat 20 bands supported** | `lux_atc 'AT+QNWPREFCFG="lte_band",1:3:5:8:40:41'` |
+| **Network Mode** | Locked to `NR5G` only | **Automatic 5G/4G + Dual mode** | `lux_atc 'AT+QNWPREFCFG="mode_pref",AUTO'` |
+| **Carrier MBNs** | Locked to Jio Reliance profile | **100+ global carrier profiles stored** | `lux_atc 'AT+QMBNCFG="AutoSel",1'` |
+| **Cell Locking** | Hidden | **Lock to PCI / ARFCN tower** | `lux_atc 'AT+QNWLOCK="common/5g",<pci>,<freq>,<scs>,<band>'` |
+| **RF Output Power** | Standard Class 3 (+23 dBm) | **HPUE Power Class 1.5 (+29 dBm / 800mW)** | `lux_atc 'AT+QPC1DOT5=1'` |
+| **SIM Slots** | Locked to Slot 2 (eSIM) | **Dual SIM (Slot 1 Physical / Slot 2 eSIM)**| `lux_atc 'AT+QUIMSLOT=1'` or `2` |
+| **Ethernet Controller** | Fixed GbE link | **Up to 10Gbps / MAC Spoofing** | `lux_atc 'AT+QETH="MAC_ADDRESS",<NEW_MAC>'` |
+| **GNSS / GPS** | Disabled by default | **Active Satellite NMEA on `/dev/ttyUSB2`** | `lux_atc 'AT+QGPS=1'` |
+
+For the full chip architectural analysis, see [docs/QUECTEL_RG520F_JO_CHIP_UNHIDE.md](docs/QUECTEL_RG520F_JO_CHIP_UNHIDE.md).
 
 ---
 
