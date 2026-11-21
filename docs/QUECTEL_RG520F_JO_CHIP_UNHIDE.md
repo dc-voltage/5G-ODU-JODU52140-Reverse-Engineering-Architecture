@@ -232,7 +232,7 @@ The hardware contains both an internal nano-SIM slot and an embedded Thales eUIC
 * **Query eSIM EID:**
   ```bash
   luxcmds sys eid
-  # Output: SUCCESS:89033023426300000000018883054460
+  # Output: SUCCESS:890330234263XXXXXXXXXXXXXXXXXX
   ```
 
 ---

@@ -124,6 +124,15 @@ def mask_serial(sn):
     return s
 
 
+def mask_eid(eid):
+    if not eid or eid == "N/A":
+        return eid
+    s = str(eid).strip()
+    if len(s) > 12:
+        return s[:12] + "X" * (len(s) - 12)
+    return s
+
+
 def cmd_info(odu):
     print("\n--- [ Device Hardware & System Metadata ] ---")
     sys_info = odu.ubus_call("luxslam", "sys", {"cmd": "get", "class": "device"})
@@ -213,6 +222,9 @@ def cmd_sim_slot(odu, slot=None):
         print("\n--- [ Current Active SIM Slot ] ---")
         print(odu.at_cmd('AT+QUIMSLOT?'))
         print(odu.run_command("luxcmds sys slot"))
+        eid = odu.run_command("luxcmds sys eid").replace("SUCCESS:", "").strip()
+        if eid:
+            print(f"eSIM EID:         {mask_eid(eid)}")
 
 
 def cmd_bluetooth(odu, state=None):

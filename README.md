@@ -175,7 +175,7 @@ Every feature documented below has been **thoroughly investigated and verified d
 
 ### 4. Dual SIM & eSIM Management
 * **Dual SIM Architecture:** The physical hardware contains both a physical Nano-SIM slot (Slot 1) and an onboard Thales eUICC eSIM (Slot 2).
-* **EID:** `89033023426300000000018883054460` (retrieved via `luxcmds sys eid`).
+* **EID:** `890330234263XXXXXXXXXXXXXXXXXX` (retrieved via `luxcmds sys eid`).
 * **Slot Switching:**
   ```bash
   lux_atc 'AT+QUIMSLOT=1'   # Switch to Physical SIM

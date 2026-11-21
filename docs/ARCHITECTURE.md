@@ -182,7 +182,7 @@ flowchart LR
 
 ### Dual SIM & eSIM:
 * **Physical SIM (Slot 1):** Internal nano-SIM slot wired directly to the baseband USIM interface.
-* **eSIM (Slot 2):** Onboard Thales eUICC chip (EID: `89033023426300000000018883054460`) managed via LPA daemon (`lpad`) with GSMA RSPv2 root certificates (`/data/GSMA_RSPv2-Root.pem`).
+* **eSIM (Slot 2):** Onboard Thales eUICC chip (EID: `890330234263XXXXXXXXXXXXXXXXXX`) managed via LPA daemon (`lpad`) with GSMA RSPv2 root certificates (`/data/GSMA_RSPv2-Root.pem`).
 * **Switching:** Controlled via `AT+QUIMSLOT=1` or `AT+QUIMSLOT=2`.
 
 ### Bluetooth 5.x:
