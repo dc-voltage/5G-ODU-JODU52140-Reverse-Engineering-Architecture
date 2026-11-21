@@ -218,13 +218,18 @@ def cmd_sim_slot(odu, slot=None):
     if slot:
         print(f"[+] Switching SIM Slot to: {slot} (1=Physical SIM, 2=eSIM)")
         print(odu.at_cmd(f'AT+QUIMSLOT={slot}'))
+        odu.run_command(f"echo '{slot}' > /data/sim_slot_pref")
     else:
         print("\n--- [ Current Active SIM Slot ] ---")
-        print(odu.at_cmd('AT+QUIMSLOT?'))
+        curr = odu.at_cmd('AT+QUIMSLOT?')
+        print(curr)
         print(odu.run_command("luxcmds sys slot"))
-        eid = odu.run_command("luxcmds sys eid").replace("SUCCESS:", "").strip()
-        if eid:
-            print(f"eSIM EID:         {mask_eid(eid)}")
+        if "+QUIMSLOT: 2" in curr:
+            eid = odu.run_command("luxcmds sys eid", timeout=8.0).replace("SUCCESS:", "").strip()
+            if eid and "FAIL" not in eid:
+                print(f"eSIM EID:         {mask_eid(eid)}")
+        else:
+            print("Slot Type:        Physical Nano-SIM (Slot 1)")
 
 
 def cmd_bluetooth(odu, state=None):
